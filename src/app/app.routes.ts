@@ -5,6 +5,7 @@ import { UpdateComponent } from './update/update.component';
 
 export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
-  { path: 'update', component: UpdateComponent },
+  { path: 'update', component: UpdateComponent, pathMatch: 'full' },
+  { path: 'update/:id', component: UpdateComponent },
   { path: 'members', component: MembersComponent }
 ];

@@ -1,1 +1,70 @@
-<p>update works!</p>
+<div class="container">
+  <h1 class="my-5">Update</h1>
+
+  <div class="mb-3 form-floating">
+    <input type="text" class="form-control" id="idFirstname" placeholder="Firstname" [formControl]="firstnameFC"
+      [class]="firstnameFC.touched ? firstnameFC.valid ? 'is-valid' : 'is-invalid' : ''">
+    <label for="idFirstname">Firstname</label>
+    <div class="invalid-feedback">
+      Please provide a firstname.
+    </div>
+  </div>
+
+  <div class="mb-3 form-floating">
+    <input type="text" class="form-control" id="idLastname" placeholder="lastname" [formControl]="lastnameFC"
+      [class]="lastnameFC.touched ? lastnameFC.valid ? 'is-valid' : 'is-invalid' : ''">
+    <label for="idLastname">Lastname</label>
+    <div class="invalid-feedback">
+      Please provide a lastname.
+    </div>
+  </div>
+
+  <div class="mb-5 form-floating">
+    <input type="email" class="form-control" id="staticEmail" placeholder="email@example.com" [formControl]="emailFC"
+      [class]="emailFC.touched ? emailFC.valid ? 'is-valid' : 'is-invalid' : ''">
+    <label for="staticEmail">Email</label>
+    <div class="invalid-feedback">
+      Please provide a valid email address.
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <button type="button" class="w-100 btn btn-success" (click)="register(content)">Update</button>
+    </div>
+    <div class="col">
+      <button type="button" class="w-100 btn btn-secondary" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h6 class="modal-title" id="modal-basic-title">Existing member updated!</h6>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>firstname</td>
+          <td>:</td>
+          <td>{{ firstnameFC.value }}</td>
+        </tr>
+        <tr>
+          <td>lastname</td>
+          <td>:</td>
+          <td>{{ lastnameFC.value }}</td>
+        </tr>
+        <tr>
+          <td>email</td>
+          <td>:</td>
+          <td>{{ emailFC.value }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>
