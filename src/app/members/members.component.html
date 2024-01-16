@@ -1,1 +1,28 @@
-<p>members works!</p>
+<div class="container">
+  <h1 class="my-5">Alle Teilnehmerinnen</h1>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Vorname</th>
+        <th scope="col">Nachname</th>
+        <th scope="col">E-Mail</th>
+        <th scope="col">Delete</th>
+        <th scope="col">Update</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (member of members; track member.id) {
+        <tr>
+          <td>{{ member.id }}</td>
+          <td>{{ member.firstname }}</td>
+          <td>{{ member.lastname }}</td>
+          <td>{{ member.email }}</td>
+          <td><button class="btn btn-danger btn-sm" (click)="delete(member.id)">Delete</button></td>
+          <td><a class="btn btn-sm btn-success" [routerLink]="['/update', member.id]">Edit</a></td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

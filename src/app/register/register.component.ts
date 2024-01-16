@@ -1,6 +1,8 @@
 import { Component, TemplateRef, ViewChild, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BackendService } from '../shared/backend.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +13,8 @@ import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstra
 })
 export class RegisterComponent {
   private modalService = inject(NgbModal);
+  bs = inject(BackendService);
+  router = inject(Router)
   closeResult = '';
 
   firstnameFC = new FormControl('', [Validators.required]);
@@ -26,15 +30,23 @@ export class RegisterComponent {
     if(this.formValid())
     {
       let member = {
-        firstname: this.firstnameFC.value,
-        lastname: this.lastnameFC.value,
-        email: this.emailFC.value
+        id: 0,
+        firstname: this.firstnameFC.value!,
+        lastname: this.lastnameFC.value!,
+        email: this.emailFC.value!
       }
+
+      this.bs.createNewMember(member).subscribe({
+          next: (response) => console.log('response', response),
+          error: (err) => console.log(err),
+          complete: () => console.log('register completed')
+      })
 
       this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result
       .then(
         (result) => {
           this.closeResult = `Closed with: ${result}`;
+          this.router.navigate(['/members']);
         },
         (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
